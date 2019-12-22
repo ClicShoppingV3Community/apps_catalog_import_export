@@ -1,0 +1,64 @@
+heading_title = ImportExport
+module_ct_title = ImportExport
+module_ct_short_title = ImportExport
+
+text_products_import_export =  ImportExport
+text_configure = Configure App Module
+
+text_intro = This app allow you to include an import_export pages. <br /><br />
+- Activate this module and activate the module  import_export located in the catlog menu
+
+module_ct_introduction = The install process create the access menu
+
+button_back = Back
+button_install_title = Install
+button_configure = Configure
+button_save = Save
+button_dialog_uninstall =  Uninstall
+button_uninstall =  Uninstall
+button_delete = Delete
+button_import_export = ImportExport
+button_cancel = Cancel
+button_new = New
+button_new_product = New product
+button_new_import_export = New categorie
+button_move = Move
+button_update = Update
+button_insert = Insert
+button_products = Products
+
+dialog_uninstall_title = Uninstall
+dialog_uninstall_body = Do you want install this App ?
+dialog_uninstall_title = Uninstall Module?
+dialog_uninstall_body = Are you sure you want to uninstall this module?
+
+alert_module_install_success = Module has been successfully installed.
+alert_module_uninstall_success = Module has been successfully uninstalled.
+alert_cfg_saved_success = Configuration parameters have been successfully saved.
+
+tab_categories = Categories
+tab_products = Products
+text_import = Import
+text_export = Export
+text_import_categories = Categories import
+text_export_categories = Categories export
+text_import_product = Products import
+text_export_products = Products export
+text_csv_file = Cvs File
+text_delimiter = Delimiter
+text_escape_caracter = Escape caracter
+text_enclosure = Enclosure
+text_line_ending = Ending Line
+text_output = Output
+text_language = Language
+
+title_help_description = Help
+text_description = <li> Please pay attention to the characteristics of the fields. If you have any hesitation, do not hesitate to look at the fields in your database. </li>
+<li> You can insert a new field with an id or without an id </li>
+<P></p>
+<li> For products, please <strong> update the customer group </strong> in order to synchronize all the tables in the database </li>
+
+error_must_select_file_to_upload = Error upload
+error_failed_decoding_csv = Error encoding csv
+success_import_products_csv = Success : Now please update the all the customers group  (menu customers/Customers groups) to finish the synchronisation
+success_import_csv = Success : The important has been realised.

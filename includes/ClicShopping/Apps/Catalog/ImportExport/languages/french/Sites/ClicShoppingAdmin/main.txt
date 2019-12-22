@@ -1,0 +1,67 @@
+heading_title = Import / Export
+module_ct_title = Import / Export
+module_ct_short_title = Import / Export
+
+text_products_import_export = Import / Export
+text_configure =  Configurer App Module
+
+text_intro = Cette app vous permet d'installer un système de gestion d'import_export des produits. <br /><br />
+- Activer ce module. Pour y accéder, veuillez aller dans le Menus Produits/Import / Exports
+
+module_ct_introduction = Le processus d'installation installe le menu
+module_ct_short_title = Import / Export
+
+button_back = Retour
+button_install_title = Installer
+button_configure = Configurer
+button_save = Sauver
+button_dialog_uninstall =  Désinstaller
+button_uninstall =  Désinstaller
+button_delete = Supprimer
+button_import_export = Import / Export
+button_cancel = Annuler
+button_new = Nouveau
+button_new_product = Nouveau Produit
+button_new_import_export = Nouvelle catégorie
+button_move = Déplacer
+button_update = Mettre à jour
+button_insert = Insérer
+button_products = Produits
+
+dialog_uninstall_title = Désinstaller
+dialog_uninstall_body = Souhaitez-vous installer cette App ?
+dialog_uninstall_title = Désinstaller le module?
+dialog_uninstall_body = Etes vous sur de désinstaller ce module?
+
+alert_module_install_success = Le module a été installée.
+alert_module_uninstall_success = Le module a été désinstallée.
+alert_cfg_saved_success = les paramètres de configuration ont été mises à jour.
+
+tab_categories = Catégories
+tab_products = Produits
+text_import = Importer
+text_export = Exporter
+text_import_categories = Importer catégories
+text_export_categories = Exporter catégories
+text_import_product = Importer Produits
+text_export_products = Exporter Produits
+text_csv_file = Fichier Cvs
+text_delimiter = Delimiter
+text_escape_caracter = Escape caracter
+text_enclosure = Enclosure
+text_line_ending = Ending Line
+text_output = Output
+text_language = Langages
+
+title_help_description = Aide
+text_description =  <li>Veuillez bien faire attention aux caratéristiques des champs. Si vous avez une hésitation, n'hésitez pas à regarder les champs dans votre base de données.</li>
+<li>Vous pouvez insérer un nouveau champs avec un id ou sans id</li>
+<p></p>
+<li>Pour les produits, veuillez <strong>réaliser une actualisation du groupe de clients </strong> afin de synchronisez l'ensemble des tables de la base de données</li>
+
+
+
+error_must_select_file_to_upload = Erreur téléchargement
+error_failed_decoding_csv = Erreur encodage csv
+success_import_products_csv = Succès : Veuillez mettre à jour vos groupes clients (menu Clients/Groupes clients) pour terminer la synchronisation.
+success_import_csv = Succès : L'importation a été réalisée
