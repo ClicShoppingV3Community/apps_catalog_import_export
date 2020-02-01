@@ -24,8 +24,6 @@
     {
       $this->app = Registry::get('ImportExport');
 
-      $CLICSHOPPING_Db = Registry::get('Db');
-
       if (isset($_GET['ImportExport']) && $_GET['export'] == 'categories') {
         $delimiter = HTML::sanitize($_POST['delimiter']);
         $enclosure = HTML::sanitize($_POST['enclosure']);
@@ -36,7 +34,7 @@
 
         $csv = [];
 
-        $Qcategories = $CLICSHOPPING_Db->prepare('select c.*,
+        $Qcategories = $this->app->db->prepare('select c.*,
                                                         cd.* 
                                                  from :table_categories c,
                                                       :table_categories_description cd

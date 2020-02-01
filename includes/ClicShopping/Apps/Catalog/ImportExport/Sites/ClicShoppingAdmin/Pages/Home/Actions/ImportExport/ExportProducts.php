@@ -24,8 +24,6 @@
     {
       $this->app = Registry::get('ImportExport');
 
-      $CLICSHOPPING_Db = Registry::get('Db');
-
       if (isset($_GET['ImportExport']) && $_GET['export'] == 'products') {
         $delimiter = HTML::sanitize($_POST['delimiter']);
         $enclosure = HTML::sanitize($_POST['enclosure']);
@@ -36,18 +34,18 @@
 
         $csv = [];
 
-        $Qproducts = $CLICSHOPPING_Db->prepare('select p.*,
-                                                       pd.* 
-                                                from :table_products p,
-                                                      :table_products_description pd
-                                                 where p.products_id = pd.products_id
-                                                 and language_id = :language_id                                                 
-                                                ');
+        $Qproducts = $this->app->db->prepare('select p.*,
+                                                     pd.* 
+                                              from :table_products p,
+                                                    :table_products_description pd
+                                               where p.products_id = pd.products_id
+                                               and language_id = :language_id                                                 
+                                              ');
         $Qproducts->bindInt('language_id', $language_id);
         $Qproducts->execute();
 
         while ($Qproducts->fetch()) {
-          $Qcategories = $CLICSHOPPING_Db->prepare('select categories_id
+          $Qcategories = $this->app->db->prepare('select categories_id
                                                     from :table_products_to_categories
                                                     where products_id = :products_id
                                                     limit 1                                              

@@ -26,7 +26,6 @@
       $this->app = Registry::get('ImportExport');
 
       $CLICSHOPPING_Hooks = Registry::get('Hooks');
-      $CLICSHOPPING_Db = Registry::get('Db');
       $CLICSHOPPING_Language = Registry::get('Language');
 
       if (isset($_GET['ImportExport']) && $_GET['import'] == 'products') {
@@ -171,7 +170,7 @@
             'products_type' => substr($data['products_type'], 0, 20),
            ];
 
-          $Qcheck = $CLICSHOPPING_Db->get('products', 'products_id', ['products_id' => $data['products_id']]);
+          $Qcheck = $this->app->db->get('products', 'products_id', ['products_id' => $data['products_id']]);
 
           if ($Qcheck->fetch()) {
             $insert_sql_data = ['products_id' => $data['products_id']];
@@ -179,7 +178,7 @@
 //
 // products_description
 //
-            $Qcheck = $CLICSHOPPING_Db->get('products_description', 'products_id', ['products_id' => $data['products_id']]);
+            $Qcheck = $this->app->db->get('products_description', 'products_id', ['products_id' => $data['products_id']]);
 
             if ($Qcheck->fetch()) {
               $sql_data_array = [

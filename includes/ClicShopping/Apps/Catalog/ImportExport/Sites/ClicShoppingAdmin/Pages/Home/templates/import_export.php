@@ -14,11 +14,14 @@
 
   use ClicShopping\Apps\Catalog\ImportExport\Classes\ClicShoppingAdmin\ImportExportAdmin;
 
-  $CLICSHOPPING_ImportExport = Registry::get('ImportExport');
-  $CLICSHOPPING_Page = Registry::get('Site')->getPage();
   $CLICSHOPPING_Hooks = Registry::get('Hooks');
   $CLICSHOPPING_Template = Registry::get('TemplateAdmin');
   $CLICSHOPPING_language = Registry::get('Language');
+
+  $CLICSHOPPING_ImportExport = Registry::get('ImportExport');
+  $CLICSHOPPING_Page = Registry::get('Site')->getPage();
+
+  $array_language = $CLICSHOPPING_language->getAllLanguage();
 
    if (isset($_GET['message'])) {
      if ($_GET['message'] == 'error_file') {
@@ -134,7 +137,7 @@
                   <?php echo '&nbsp;' . $CLICSHOPPING_ImportExport->getDef('text_export_categories'); ?>
                 </div>
                 <div class="card-body">
-                  <?php echo HTML::form('export_category', $CLICSHOPPING_ImportExport->link('ImportExport&ExportCategories&export=categories'), 'post'); ?>
+                  <?php echo HTML::form('export_category', $CLICSHOPPING_ImportExport->link('ImportExport&ExportCategories&export=categories')); ?>
                   <div class="separator"></div>
                   <div class="row" id="categories_export_delimiter">
                     <span class="col-md-6">
@@ -183,7 +186,6 @@
                     <span class="col-md-6">
                       <?php
                         echo '&nbsp;' . $CLICSHOPPING_ImportExport->getDef('text_language');
-                        $array_language = $CLICSHOPPING_language->getAllLanguage();
                         echo HTML::selectField('language', $array_language);
                       ?>
                     </span>
@@ -323,7 +325,6 @@
                     <span class="col-md-6" id="products_export_language">
                       <?php
                       echo '&nbsp;' . $CLICSHOPPING_ImportExport->getDef('text_language');
-                      $array_language = $CLICSHOPPING_language->getAllLanguage();
                       echo HTML::selectField('language', $array_language);
                       ?>
                     </span>

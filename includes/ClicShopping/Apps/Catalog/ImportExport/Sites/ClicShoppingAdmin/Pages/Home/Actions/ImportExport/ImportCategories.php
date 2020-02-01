@@ -26,7 +26,6 @@
       $this->app = Registry::get('ImportExport');
 
       $CLICSHOPPING_Hooks = Registry::get('Hooks');
-      $CLICSHOPPING_Db = Registry::get('Db');
       $CLICSHOPPING_Language = Registry::get('Language');
 
       if (isset($_GET['ImportExport']) && $_GET['import'] == 'categories') {
@@ -91,7 +90,7 @@
             'google_taxonomy_id' => (int)$data['google_taxonomy_id'],
           ];
 
-          $Qcheck = $CLICSHOPPING_Db->get('categories', 'categories_id', ['categories_id' => $data['categories_id']]);
+          $Qcheck = $this->app->db->get('categories', 'categories_id', ['categories_id' => $data['categories_id']]);
 
           if ($Qcheck->fetch()) {
             $insert_sql_data = ['categories_id' => $data['categories_id']];
@@ -99,7 +98,7 @@
 //
 // Insert inside categories description table
 //
-            $Qcheck = $CLICSHOPPING_Db->get('categories', 'categories_id', ['categories_id' => $data['categories_id']]);
+            $Qcheck = $this->app->db->get('categories', 'categories_id', ['categories_id' => $data['categories_id']]);
 
             if ($Qcheck->fetch()) {
               $sql_data_array = [

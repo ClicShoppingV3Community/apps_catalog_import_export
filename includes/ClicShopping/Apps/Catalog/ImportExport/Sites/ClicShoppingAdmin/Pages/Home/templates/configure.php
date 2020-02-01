@@ -21,8 +21,8 @@
 
   $CLICSHOPPING_ImportExport_Config = Registry::get('ImportExportAdminConfig' . $current_module);
 
-  if ($CLICSHOPPING_MessageStack->exists('ImportExport')) {
-    echo $CLICSHOPPING_MessageStack->get('ImportExport');
+  if ($CLICSHOPPING_MessageStack->exists('main')) {
+    echo $CLICSHOPPING_MessageStack->get('main');
   }
 ?>
 
