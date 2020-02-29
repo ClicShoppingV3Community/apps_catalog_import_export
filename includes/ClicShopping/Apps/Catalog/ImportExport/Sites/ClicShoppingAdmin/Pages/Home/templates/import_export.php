@@ -262,6 +262,21 @@
                     </span>
                   </div>
                   <div class="separator"></div>
+                  <div class="row" id="products_import_output_quick_update">
+                    <span class="col-md-6">
+                      <?php
+                        echo '&nbsp;' . $CLICSHOPPING_ImportExport->getDef('text_all_import_quick_update') . ' ';
+                        echo HTML::checkboxField('import_all_products', false);
+                      ?>
+                    </span>
+                    <span class="col-md-6" id="products_import_input_field_quick_update">
+                      <?php
+                        echo '&nbsp;' . $CLICSHOPPING_ImportExport->getDef('text_import_quick_update') . ' ';
+                        echo HTML::checkboxField('import_products_quick_update', false);
+                      ?>
+                    </span>
+                  </div>
+                  <div class="separator"></div>
                   <div class="text-md-center">
                     <?php echo HTML::button($CLICSHOPPING_ImportExport->getDef('text_import'), null, null, 'success'); ?>
                   </div>
@@ -330,6 +345,24 @@
                     </span>
                   </div>
                   <div class="separator"></div>
+
+
+                  <div class="row" id="products_export_output_quick_update">
+                    <span class="col-md-6">
+                      <?php
+                        echo '&nbsp;' . $CLICSHOPPING_ImportExport->getDef('text_all_export_quick_update') . ' ';
+                        echo HTML::checkboxField('export_all_products', null, false);
+                      ?>
+                    </span>
+                    <span class="col-md-6" id="products_export_inputfield_quick_update">
+                      <?php
+                        echo '&nbsp;' . $CLICSHOPPING_ImportExport->getDef('text_export_quick_update') . ' ';
+                        echo HTML::checkboxField('export_quick_update', null, false);
+                      ?>
+                    </span>
+                  </div>
+                  <div class="separator"></div>
+
                   <div class="text-md-center">
                     <?php echo HTML::button($CLICSHOPPING_ImportExport->getDef('text_export'), null, null, 'primary'); ?>
                   </div>

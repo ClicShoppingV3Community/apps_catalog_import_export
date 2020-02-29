@@ -52,11 +52,17 @@ text_line_ending = Ending Line
 text_output = Output
 text_language = Language
 
+text_all_import_quick_update = Normal import (all fields)
+text_import_quick_update = Quick update(id, model, stock)
+text_all_export_quick_update = Normal export (all fields)
+text_export_quick_update = Quick update s(id, model, stock)s
+
 title_help_description = Help
 text_description = <li> Please pay attention to the characteristics of the fields. If you have any hesitation, do not hesitate to look at the fields in your database. </li>
 <li> You can insert a new field with an id or without an id </li>
 <P></p>
 <li> For products, please <strong> update the customer group </strong> in order to synchronize all the tables in the database </li>
+<li> For the quick update import, please do not modify the product id</li>
 
 error_must_select_file_to_upload = Error upload
 error_failed_decoding_csv = Error encoding csv

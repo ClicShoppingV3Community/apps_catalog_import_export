@@ -53,13 +53,17 @@ text_line_ending = Ending Line
 text_output = Output
 text_language = Langages
 
+text_all_import_quick_update = Importation normal (tous les champs)
+text_import_quick_update = Mise à jour rapide (id, ref, stock)
+text_all_export_quick_update =  Exportation normal (tous les champs)
+text_export_quick_update = Mise à jour rapide (id, ref, stock)
+
 title_help_description = Aide
 text_description =  <li>Veuillez bien faire attention aux caratéristiques des champs. Si vous avez une hésitation, n'hésitez pas à regarder les champs dans votre base de données.</li>
 <li>Vous pouvez insérer un nouveau champs avec un id ou sans id</li>
 <p></p>
 <li>Pour les produits, veuillez <strong>réaliser une actualisation du groupe de clients </strong> afin de synchronisez l'ensemble des tables de la base de données</li>
-
-
+<li> Pour la mise à jour rapide, veuillez à ne pas modifier l'id du produit</li>
 
 error_must_select_file_to_upload = Erreur téléchargement
 error_failed_decoding_csv = Erreur encodage csv
