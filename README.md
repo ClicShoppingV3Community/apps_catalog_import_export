@@ -2,7 +2,10 @@
 
 
 This apps allow you to import or export your categories and products in csv format.
-A hooks is included and allow you to implement new importation or exportation (sulppliers, manufacturers ...)
+A hooks is included and allow you to implement new importation or exportation (suppliers, manufacturers ...)
+
+- Update, insert products
+- Quick update (model, stock, ean)
 
 GPL 2 - MIT
 Language : English and French
