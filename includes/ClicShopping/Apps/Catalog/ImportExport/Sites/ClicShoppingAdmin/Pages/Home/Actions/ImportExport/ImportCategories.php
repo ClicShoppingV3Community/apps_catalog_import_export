@@ -58,7 +58,7 @@
             'last_modified',
             'status',
             'customers_group_id',
-            'google_taxonomy_id',
+//            'google_taxonomy_id',
             'language_id',
             'categories_name',
             'categories_description',
@@ -87,7 +87,7 @@
             'date_added' => $date_added,
             'status' => (int)$data['status'],
             'customers_group_id' => (int)$data['customers_group_id'],
-            'google_taxonomy_id' => (int)$data['google_taxonomy_id'],
+//            'google_taxonomy_id' => (int)$data['google_taxonomy_id'],
           ];
 
           $Qcheck = $this->app->db->get('categories', 'categories_id', ['categories_id' => $data['categories_id']]);

@@ -54,7 +54,7 @@
             'virtual_categories' => (int)$Qcategories->valueInt('virtual_categories'),
             'status' => (int)$Qcategories->valueInt('status'),
             'customers_group_id' => (int)$Qcategories->valueInt('customers_group_id'),
-            'google_taxonomy_id' => (int)$Qcategories->valueInt('google_taxonomy_id'),
+//            'google_taxonomy_id' => (int)$Qcategories->valueInt('google_taxonomy_id'),
             'language_id' => (int)$Qcategories->valueInt('language_id'),
             'categories_name' => $Qcategories->value('categories_name'),
             'categories_description' => $Qcategories->value('categories_description'),
