@@ -184,20 +184,7 @@ associate : figuresshop20-20
           } catch (Exception $exception) {
             echo 'Error Message: ', $exception->getMessage(), PHP_EOL;
           }
-
-
-
-
-
-
-
-
-
-
-
-
-
-        } else {
+  } else {
 //**********************************
 //*********** Bulk ************
 //**********************************

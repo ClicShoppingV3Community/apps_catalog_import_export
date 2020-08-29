@@ -30,7 +30,7 @@
       $m = Registry::get('ImportExportAdminConfig' . $current_module);
       $m->install();
 
-      $this->installDbMenuAdministration();
+      static::installDbMenuAdministration();
 
       $CLICSHOPPING_MessageStack->add($CLICSHOPPING_ImportExport->getDef('alert_module_install_success'), 'success', 'ImportExport');
 
