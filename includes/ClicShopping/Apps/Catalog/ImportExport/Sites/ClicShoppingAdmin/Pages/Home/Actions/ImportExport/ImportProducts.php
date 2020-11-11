@@ -33,8 +33,18 @@
         $delimiter = HTML::sanitize($_POST['delimiter']);
         $enclosure = HTML::sanitize($_POST['enclosure']);
         $escapechar = HTML::sanitize($_POST['escape']);
-        $import_all_products = HTML::sanitize($_POST['import_all_products']) ?? '';
-        $import_products_quick_update = HTML::sanitize($_POST['import_products_quick_update'])  ?? '';
+
+        if (isset($_POST['import_all_products'])) {
+          $import_all_products = true;
+        } else {
+          $import_all_products = false;
+        }
+
+        if (isset($_POST['import_products_quick_update'])) {
+          $import_products_quick_update = true;
+        } else {
+          $import_products_quick_update = false;
+        }
 
         if (!isset($_FILES['import_products']['tmp_name']) || is_uploaded_file($_FILES['import_products']['tmp_name']) === false) {
           $this->app->redirect('ImportExport&message=error_file');
@@ -51,8 +61,9 @@
         $languages = $CLICSHOPPING_Language->getLanguages();
 
         if (is_array($csv)){
+          $count_csv = count($csv);
             foreach ($csv as $row) {
-              if (!empty($import_all_products)) {
+              if ($import_all_products === true) {
 // Set new products data
                 $fields = [
                   'products_id',
@@ -114,6 +125,7 @@
                   'products_shipping_delay',
                   'products_description_summary',
                 ];
+
 //
 // Insert inside products table
 //
@@ -265,7 +277,7 @@
                     }
                   }
                 }
-              } elseif (!empty($import_products_quick_update)) {
+              } elseif ($import_products_quick_update === true) {
               $fields = [
                 'products_id',
                 'products_quantity',
