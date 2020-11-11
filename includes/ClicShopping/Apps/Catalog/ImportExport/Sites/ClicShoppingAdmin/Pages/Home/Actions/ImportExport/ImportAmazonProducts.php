@@ -14,6 +14,7 @@
 pseudo : loic28@yahoo.fr
 login : Yae8mr2o*
 associate : figuresshop20-20
+  https://partenaires.amazon.fr/home/account
    */
 
   namespace ClicShopping\Apps\Catalog\ImportExport\Sites\ClicShoppingAdmin\Pages\Home\Actions\ImportExport;
@@ -23,64 +24,73 @@ associate : figuresshop20-20
   use ClicShopping\OM\HTML;
 
   use ClicShopping\Apps\Catalog\ImportExport\Classes\ClicShoppingAdmin\ImportExportAdmin;
-  use ClicShopping\Apps\Configuration\Administrators\Classes\ClicShoppingAdmin\AdministratorAdmin;
 
-  use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\api\DefaultApi;
+  use ClicShopping\Apps\Catalog\Products\Classes\ClicShoppingAdmin\Amazon\Configuration;
+
   use Amazon\ProductAdvertisingAPI\v1\ApiException;
-  use Amazon\ProductAdvertisingAPI\v1\Configuration;
-  use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\SearchItemsRequest;
-  use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\SearchItemsResource;
+  use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\api\DefaultApi;
   use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\PartnerType;
   use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\ProductAdvertisingAPIClientException;
+  use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\SearchItemsRequest;
+  use Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\SearchItemsResource;
+
 
   class ImportAmazonProducts extends \ClicShopping\OM\PagesActionsAbstract
   {
     protected $app;
+    protected $lang;
+    protected $hooks;
+    protected $amazon;
+
+    public function __construct()
+    {
+      $this->app = Registry::get('ImportExport');
+      $this->lang = Registry::get('Language');
+
+      $this->hooks = Registry::get('Hooks');
+
+      if(!Registry::exists('Configuration')) {
+        Registry::set('Configuration', new Configuration());
+        $this->configuration = Registry::get('Configuration');
+      }
+    }
+
+    /**
+     * @return false
+     */
+    private function check()
+    {
+      if (!defined('CLICSHOPPING_APP_CATALOG_PRODUCTS_PD_STATUS') || CLICSHOPPING_APP_CATALOG_PRODUCTS_PD_STATUS == 'False') {
+        return false;
+      }
+    }
+
 
     public function execute()
     {
-      $this->app = Registry::get('ImportExport');
-
-      $CLICSHOPPING_Hooks = Registry::get('Hooks');
-      $CLICSHOPPING_Language = Registry::get('Language');
+      $this->check();
 
       $access_key = HTML::sanitize($_POST['access_key']);
       $secret_key = HTML::sanitize($_POST['secret_key']);
-      $partner_tag = HTML::sanitize($_POST['partner_tag']);
-
+      $partner_tag = HTML::sanitize($_POST['partner_tag']); // figures05-21
+      $region = HTML::sanitize($_POST['region']);
+      $host = HTML::sanitize($_POST['amazon_host']);
 
       if (isset($_GET['ImportExport']) && $_GET['ImportAmazonProducts']) {
-
-        $config = new Configuration();
+        $config = $this->amazon->getConfig();;
 /*
- * Add your credentials
- * Please add your access key here
- */
         $config->setAccessKey($access_key);
-# Please add your secret key here
         $config->setSecretKey($secret_key);
-# Please add your partner tag (store/tracking id) here
         $partnerTag = $partner_tag;
+        $config->setHost($host); //webservices.amazon.com
+        $config->setRegion($region); //'us-east-1'
+        $apiInstance = new DefaultApi(new GuzzleHttp\Client(), $config);
+*/
 
-/*
- * PAAPI host and region to which you want to send request
- * For more details refer: https://webservices.amazon.com/paapi5/documentation/common-request-parameters.html#host-and-region
- */
-        $config->setHost('webservices.amazon.com');
-        $config->setRegion('us-east-1');
+        $config = [];
 
+        $this->configuration($config);
 
-        $apiInstance = new DefaultApi(
-/*
- * If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
- * This is optional, `GuzzleHttp\Client` will be used as default.
- */
-          new GuzzleHttp\Client(), $config);
-
-/*
- * Specify the category in which search request is to be made
- * For more details, refer: https://webservices.amazon.com/paapi5/documentation/use-cases/organization-of-items-on-amazon/search-index.html
- */
 
 
 
@@ -94,8 +104,6 @@ associate : figuresshop20-20
           $keyword = 'figures';
 # Specify item count to be returned in search result
           $itemCount = 1;
-
-
 
           /*
            * Choose resources you want from SearchItemsResource enum
@@ -138,20 +146,20 @@ associate : figuresshop20-20
             if ($searchItemsResponse->getSearchResult() != null) {
               echo 'Printing first item information in SearchResult:', PHP_EOL;
               $item = $searchItemsResponse->getSearchResult()->getItems()[0];
-              if ($item != null) {
-                if ($item->getASIN() != null) {
+              if ($item !== null) {
+                if ($item->getASIN() !== null) {
                   echo 'ASIN: ', $item->getASIN(), PHP_EOL;
                 }
-                if ($item->getDetailPageURL() != null) {
+                if ($item->getDetailPageURL() !== null) {
                   echo 'DetailPageURL: ', $item->getDetailPageURL(), PHP_EOL;
                 }
-                if ($item->getItemInfo() != null
-                  and $item->getItemInfo()->getTitle() != null
+                if ($item->getItemInfo() !== null
+                  and $item->getItemInfo()->getTitle() !== null
                   and $item->getItemInfo()->getTitle()->getDisplayValue() != null) {
                   echo 'Title: ', $item->getItemInfo()->getTitle()->getDisplayValue(), PHP_EOL;
                 }
-                if ($item->getOffers() != null
-                  and $item->getOffers() != null
+                if ($item->getOffers() !== null
+                  and $item->getOffers() !== null
                   and $item->getOffers()->getListings() != null
                   and $item->getOffers()->getListings()[0]->getPrice() != null
                   and $item->getOffers()->getListings()[0]->getPrice()->getDisplayAmount() != null) {
@@ -161,7 +169,7 @@ associate : figuresshop20-20
               }
             }
 
-            if ($searchItemsResponse->getErrors() != null) {
+            if ($searchItemsResponse->getErrors() !== null) {
               echo PHP_EOL, 'Printing Errors:', PHP_EOL, 'Printing first error object from list of errors', PHP_EOL;
               echo 'Error code: ', $searchItemsResponse->getErrors()[0]->getCode(), PHP_EOL;
               echo 'Error message: ', $searchItemsResponse->getErrors()[0]->getMessage(), PHP_EOL;
@@ -370,7 +378,7 @@ associate : figuresshop20-20
 
 
 
-        $CLICSHOPPING_Hooks->call('ImportExportCategories', 'Save');
+        $this->hooks->call('ImportExportCategories', 'Save');
 
         Cache::clear('categories');
         Cache::clear('products-also_purchased');
