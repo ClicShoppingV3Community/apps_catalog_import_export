@@ -66,5 +66,5 @@ text_description = <li> Please pay attention to the characteristics of the field
 
 error_must_select_file_to_upload = Error upload
 error_failed_decoding_csv = Error encoding csv
-success_import_products_csv = Success : Now please update the all the customers group  (menu customers/Customers groups) to finish the synchronisation
+success_import_products_csv = Success : Now please update l the customers groups (important)  (menu customers/Customers groups) to finish the synchronisation
 success_import_csv = Success : The important has been realised.
