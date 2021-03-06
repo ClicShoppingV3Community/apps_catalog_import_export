@@ -30,7 +30,7 @@
 
       foreach ($array as $row) {
         foreach (array_keys($row) as $column) {
-          if (!in_array($column, $columns)) $columns[] = $column;
+          if (!\in_array($column, $columns)) $columns[] = $column;
         }
       }
 
@@ -115,7 +115,7 @@
           continue;
         }
 
-        if (count($headers) != count($row)) {
+        if (count($headers) != \count($row)) {
           trigger_error('Inconsistent amount of columns on line '. $line .' (Expected '. count($headers) .' columns - Found '. count($row) .')', E_USER_WARNING);
           return false;
         }

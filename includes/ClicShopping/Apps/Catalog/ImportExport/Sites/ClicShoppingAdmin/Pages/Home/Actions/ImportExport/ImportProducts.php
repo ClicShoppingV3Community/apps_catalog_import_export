@@ -60,8 +60,8 @@
 
         $languages = $CLICSHOPPING_Language->getLanguages();
 
-        if (is_array($csv)){
-          $count_csv = count($csv);
+        if (\is_array($csv)){
+          $count_csv = \count($csv);
             foreach ($csv as $row) {
               if ($import_all_products === true) {
 // Set new products data
@@ -242,7 +242,7 @@
 //
 // products_description
 //
-                  for ($i = 0, $n = count($languages); $i < $n; $i++) {
+                  for ($i = 0, $n = \count($languages); $i < $n; $i++) {
                     if ((int)$data['language_id'] === $languages[$i]['id']) {
                       $sql_data_array = [
                         'language_id' => (int)$data['language_id'],

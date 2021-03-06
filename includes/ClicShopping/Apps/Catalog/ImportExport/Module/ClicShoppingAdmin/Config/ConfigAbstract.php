@@ -18,7 +18,7 @@
   {
     protected $app;
 
-    public $code;
+    public string $code;
     public $title;
     public $short_title;
     public $introduction;
@@ -107,7 +107,7 @@
         $cfg = new $class($this->code);
 
 
-        if (!defined($key)) {
+        if (!\defined($key)) {
           $this->app->saveCfgParam($key, $cfg->default, isset($cfg->title) ? $cfg->title : null, isset($cfg->description) ? $cfg->description : null, isset($cfg->set_func) ? $cfg->set_func : null);
         }
 
@@ -115,7 +115,7 @@
           if (is_numeric($cfg->sort_order)) {
             $counter = (int)$cfg->sort_order;
           } else {
-            $counter = count($result);
+            $counter = \count($result);
           }
 
           while (true) {
