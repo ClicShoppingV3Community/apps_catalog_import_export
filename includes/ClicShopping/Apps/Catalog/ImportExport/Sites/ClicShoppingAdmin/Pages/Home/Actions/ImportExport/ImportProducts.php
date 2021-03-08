@@ -46,6 +46,12 @@
           $import_products_quick_update = false;
         }
 
+        if (isset($_POST['import_products_quick_update_amazon'])) {
+          $import_products_quick_update_amazon = true;
+        } else {
+          $import_products_quick_update_amazon = false;
+        }
+
         if (!isset($_FILES['import_products']['tmp_name']) || is_uploaded_file($_FILES['import_products']['tmp_name']) === false) {
           $this->app->redirect('ImportExport&message=error_file');
         }
@@ -59,9 +65,9 @@
         $csv = ImportExportAdmin::csvDecode($csv,$delimiter, $enclosure, $escapechar, null);
 
         $languages = $CLICSHOPPING_Language->getLanguages();
+        $error = false;
 
         if (\is_array($csv)){
-          $count_csv = \count($csv);
             foreach ($csv as $row) {
               if ($import_all_products === true) {
 // Set new products data
@@ -124,6 +130,7 @@
                   'products_head_tag',
                   'products_shipping_delay',
                   'products_description_summary',
+                  'products_asin'
                 ];
 
 //
@@ -146,6 +153,7 @@
                   'products_model' => substr($data['products_model'], 0, 255),
                   'products_image' => substr($data['products_image'], 0, 255),
                   'products_ean' => substr($data['products_ean'], 0, 15),
+                  'products_sku' => $data['products_sku'],
                   'products_image_zoom' => substr($data['products_image_zoom'], 0, 255),
                   'products_price' => (float)$data['products_price'],
                   'products_date_added' => $products_date_added,
@@ -184,6 +192,7 @@
                   'products_download_filename' => substr($data['products_download_filename'], 0, 255),
                   'products_download_public' => (int)$data['products_download_public'],
                   'products_type' => substr($data['products_type'], 0, 20),
+                  'products_asin' => substr($data['products_asin'], 0, 255),
                 ];
 
                 $Qcheck = $this->app->db->get('products', 'products_id', ['products_id' => $data['products_id']]);
@@ -278,39 +287,100 @@
                   }
                 }
               } elseif ($import_products_quick_update === true) {
-              $fields = [
-                'products_id',
-                'products_quantity',
-                'products_model',
-                'products_sku',
-                'products_status',
-                'admin_user_name'
-              ];
-
-              foreach ($fields as $field) {
-                if (isset($row[$field])) $data[$field] = $row[$field];
-              }
-
-               $Qcheck = $this->app->db->get('products', 'products_id', ['products_id' => $data['products_id']]);
-
-              if ($Qcheck->fetch()) {
-                $data['products_last_modified'] =  'now()';
-                $data['admin_user_name'] = AdministratorAdmin::getUserAdmin();
-
-                $sql_data_array = [
-                  'products_quantity' => (int)$data['products_quantity'],
-                  'products_model' => substr($data['products_model'], 0, 255),
-                  'products_sku' => (int)$data['products_sku'],
-                  'products_status' => (int)$data['products_status'],
-                  'products_last_modified' => 'now()',
-                  'admin_user_name' => $data['admin_user_name']
+                $fields = [
+                  'products_id',
+                  'products_quantity',
+                  'products_model',
+                  'products_sku',
+                  'products_ean',
+                  'products_status',
+                  'products_asin',
+                  'admin_user_name'
                 ];
 
-                $update_array = ['products_id' => $data['products_id']];
+                foreach ($fields as $field) {
+                  if (isset($row[$field])) $data[$field] = $row[$field];
+                }
 
-                $this->app->db->save('products', $sql_data_array, $update_array);
+                $Qcheck = $this->app->db->get('products', 'products_id', ['products_id' => $data['products_id']]);
+
+                if ($Qcheck->fetch()) {
+                  $data['products_last_modified'] =  'now()';
+                  $data['admin_user_name'] = AdministratorAdmin::getUserAdmin();
+
+                  $sql_data_array = [
+                    'products_quantity' => (int)$data['products_quantity'],
+                    'products_model' => substr($data['products_model'], 0, 255),
+                    'products_sku' => $data['products_sku'],
+                    'products_ean' => substr($data['products_ean'], 0, 15),
+                    'products_status' => (int)$data['products_status'],
+                    'products_last_modified' => 'now()',
+                    'admin_user_name' => $data['admin_user_name'],
+                    'products_asin' => substr($data['products_asin'], 0, 255),
+                  ];
+
+                  $update_array = ['products_id' => $data['products_id']];
+
+                  $this->app->db->save('products', $sql_data_array, $update_array);
+                }
+              } elseif  ($import_products_quick_update_amazon === true) {
+                $fields = [
+                  'products_id',
+                  'products_sku',
+                  'products_quantity',
+                  'products_ean',
+                  'products_status',
+                  'admin_user_name',
+                  'products_asin'
+                ];
+
+                foreach ($fields as $field) {
+                  if (isset($row[$field])) $data[$field] = $row[$field];
+                }
+
+                $QcheckSku = $this->app->db->prepare('select products_id,
+                                                             products_sku
+                                                      from :table_products
+                                                      where products_sku = :products_sku                
+                                                     ');
+
+                $QcheckSku->bindValue(':products_sku', $data['products_sku']);
+                $QcheckSku->execute();
+
+                if ($QcheckSku->fetch()) {
+                   if (isset($data['products_sku']) && !isset($data['products_id'])) {
+                   $sql_data_array = [
+                     'products_last_modified' => 'now()',
+                     'admin_user_name' => AdministratorAdmin::getUserAdmin(),
+                     'products_quantity' => $data['products_quantity']
+                   ];
+
+                   $update_array = ['products_sku' => $data['products_sku']];
+
+                   $this->app->db->save('products', $sql_data_array, $update_array);
+                  }
+                } else {
+                  if (isset($data['products_id'])) {
+                    $Qcheck = $this->app->db->get('products', 'products_id', ['products_id' => $data['products_id']]);
+
+                    if ($Qcheck->fetch()) {
+                      $sql_data_array = [
+                        'products_quantity' => $data['products_quantity'],
+                        'products_last_modified' => 'now()',
+                        'admin_user_name' => AdministratorAdmin::getUserAdmin(),
+                        'products_sku' => $data['products_sku'],
+                        'products_ean' => $data['products_ean'],
+                        'products_status' => $data['products_status'],
+                        'products_asin' => $data['products_asin']
+                      ];
+
+                      $update_array = ['products_id' => $data['products_id']];
+
+                      $this->app->db->save('products', $sql_data_array, $update_array);
+                    }
+                  }
+                }
               }
-            }
           }
         } else {
           echo '<div class="alert alert-warning">Import Error</div>';
@@ -325,6 +395,10 @@
         Cache::clear('upcoming');
       }
 
-      $this->app->redirect('ImportExport&message=success_product');
+      if ($error === false) {
+        $this->app->redirect('ImportExport&message=success_product');
+      } else {
+        $this->app->redirect('ImportExport&message=error_product');
+      }
     }
   }

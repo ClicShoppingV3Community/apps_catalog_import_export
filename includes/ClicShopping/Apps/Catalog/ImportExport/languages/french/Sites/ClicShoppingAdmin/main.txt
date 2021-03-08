@@ -52,6 +52,9 @@ text_enclosure = Enclosure
 text_line_ending = Ending Line
 text_output = Output
 text_language = Langages
+text_import_quick_update_amazon = Import produit Amazon
+text_export_quick_update_amzon = Export produit Amazon
+
 
 text_all_import_quick_update = Importation normal (tous les champs)
 text_import_quick_update = Mise à jour rapide (id, ref, stock)
@@ -65,7 +68,24 @@ text_description =  <li>Veuillez bien faire attention aux caratéristiques des c
 <li>Pour les produits, veuillez <strong>réaliser une actualisation du groupe de clients </strong> afin de synchronisez l'ensemble des tables de la base de données</li>
 <li> Pour la mise à jour rapide, veuillez à ne pas modifier l'id du produit</li>
 
+text_description_tab2 = <li>Contrainte concernant l'import via l'option Amazon sur les champs obligatoires ou non</li><br>
+<blockquote>
+<li>Dans l'hypothèse ou votre fichier ne contient pas le products_id (entete du fihier csv)</li>
+      - <strong>products_sku</strong> : champs obligatoire servant de référence d'intégrité<br>
+      - <strong>products_quantity</strong> : champs obligatoire<br>
+      - les autres champs issus du fichier Import avec l'option Amazon ne seront pas pris en compte dans l'import et peuvent etre suppimés du document<br>
+<br>----<br><br>
+<li>Si votre fichier contient le products_id (entete du fihier csv) - traitement de l'export de les champs avec l'Option Amazon<br></li>
+      - <strong>products_id</strong> : champs obligatoire servant de référence d'intégrité<br>
+      - <strong>products_sku</strong> : champs obligatoire<br>
+      - <strong>products_quantity</strong> : champs obligatoire<br>
+      - <strong>products_ean</strong> : champs obligatoire<br>
+      - <strong>products_status</strong> : champs obligatoire<br>
+      - <strong>products_asin</strong> : champs obligatoire<br>
+</blocqkuote>
+
 error_must_select_file_to_upload = Erreur téléchargement
 error_failed_decoding_csv = Erreur encodage csv
 success_import_products_csv = Succès : Veuillez mettre à jour vos groupes clients (menu Clients/Groupes clients) pour terminer la synchronisation.
 success_import_csv = Succès : L'importation a été réalisée
+error_import_products_csv = Une erreur a été identifiée dans votre fichier csv, veuillez vèrifier

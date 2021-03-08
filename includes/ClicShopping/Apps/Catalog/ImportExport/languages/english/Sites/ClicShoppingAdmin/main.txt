@@ -51,6 +51,8 @@ text_enclosure = Enclosure
 text_line_ending = Ending Line
 text_output = Output
 text_language = Language
+text_import_quick_update_amazon = Amazon products Import
+text_export_quick_update_amzon = Amazon products Export
 
 text_all_import_quick_update = Normal import (all fields)
 text_import_quick_update = Quick update(id, model, stock)
@@ -64,7 +66,24 @@ text_description = <li> Please pay attention to the characteristics of the field
 <li> For products, please <strong> update the customer group </strong> in order to synchronize all the tables in the database </li>
 <li> For the quick update import, please do not modify the product id</li>
 
+text_description_tab2 = <li>Constraint concerning the import via the Amazon option on the mandatory fields or not </li> <br>
+<blockquote>
+<li>If your file does not contain the products_id (csv header)</li>
+- <strong> products_sku </strong>: mandatory field serving as an integrity reference <br>
+- <strong> products_quantity </strong>: mandatory field <br>
+- the other fields from the Import file with the Amazon option will not be taken into the import and can be deleted from the document <br>
+<br> ---- <br> <br>
+<li>In your file contains the products_id (csv header) - processing of the export of fields with the Amazon <br> Option</li>
+- <strong> products_id </strong>: mandatory field serving as an integrity reference <br>
+- <strong> products_sku </strong>: mandatory field <br>
+- <strong> products_quantity </strong>: mandatory field <br>
+- <strong> products_ean </strong>: mandatory field <br>
+- <strong> products_status </strong>: mandatory field <br>
+- <strong> products_asin </strong>: mandatory field <br>
+</blocqkuote>
+
 error_must_select_file_to_upload = Error upload
 error_failed_decoding_csv = Error encoding csv
 success_import_products_csv = Success : Now please update l the customers groups (important)  (menu customers/Customers groups) to finish the synchronisation
 success_import_csv = Success : The important has been realised.
+error_import_products_csv = An error has been identified inside you csv, please check

@@ -91,7 +91,7 @@
         ];
 
         foreach ($array_delimitr as $char) {
-          if (strpos($matches[0], $char) !== false) {
+          if (str_contains($matches[0], $char)) {
             $delimiter = $char;
             break;
           }
@@ -115,8 +115,8 @@
           continue;
         }
 
-        if (count($headers) != \count($row)) {
-          trigger_error('Inconsistent amount of columns on line '. $line .' (Expected '. count($headers) .' columns - Found '. count($row) .')', E_USER_WARNING);
+        if (\count($headers) != \count($row)) {
+          trigger_error('Inconsistent amount of columns on line '. $line .' (Expected '. \count($headers) .' columns - Found '. \count($row) .')', E_USER_WARNING);
           return false;
         }
 

@@ -31,10 +31,26 @@
         $language_id = HTML::sanitize($_POST['language']);
         $lineEnding = HTML::sanitize($_POST['line_ending']);
         $output = HTML::sanitize($_POST['output']);
-        $export_all_products = HTML::sanitize($_POST['export_all_products']);
-        $export_quick_update = HTML::sanitize($_POST['export_quick_update']);
 
-        if (isset($export_all_products) || isset($export_quick_update)) {
+        if (isset($_POST['export_all_products'])) {
+          $export_all_products = true;
+        } else {
+          $export_all_products = false;
+        }
+
+        if (isset($_POST['export_quick_update'])) {
+          $export_quick_update = true;
+        } else {
+          $export_quick_update = false;
+        }
+
+        if (isset($_POST['export_quick_update_amazon'])) {
+          $export_quick_update_amazon = true;
+        } else {
+          $export_quick_update_amazon = false;
+        }
+
+        if ($export_all_products === true || $export_quick_update === true || $export_quick_update_amazon === true) {
             $csv = [];
 
             $Qproducts = $this->app->db->prepare('select p.*,
@@ -114,7 +130,6 @@
                   'products_download_filename' => $Qproducts->valueInt('products_download_filename'),
                   'products_download_public' => $Qproducts->valueInt('products_download_public'),
                   'products_type' => $Qproducts->valueInt('products_type'),
-
                   'language_id' => $Qproducts->valueInt('language_id'),
                   'products_name' => $Qproducts->value('products_name'),
                   'products_description' => $products_description,
@@ -125,14 +140,26 @@
                   'products_head_keywords_tag' => $Qproducts->value('products_head_keywords_tag'),
                   'products_head_tag' => $Qproducts->value('products_head_tag'),
                   'products_shipping_delay' => $Qproducts->value('products_shipping_delay'),
-                  'products_description_summary' => $products_description_summary
+                  'products_description_summary' => $products_description_summary,
+                  'products_asin' => $Qproducts->value('products_asin'),
                 ];
-              } elseif ($export_quick_update == 'on' && empty($export_all_products)) {
+              } elseif ($export_quick_update === true) {
                 $csv[] = [
                   'products_id' => $Qproducts->valueInt('products_id'),
                   'products_quantity' => $Qproducts->valueInt('products_quantity'),
                   'products_model' => $Qproducts->value('products_model'),
                   'products_sku' => $Qproducts->value('products_sku'),
+                  'products_ean' => $Qproducts->value('products_ean'),
+                  'products_asin' => $Qproducts->value('products_asin'),
+                  'products_status' => $Qproducts->valueInt('products_status'),
+                ];
+              } elseif ($export_quick_update_amazon === true) {
+                $csv[] = [
+                  'products_id' => $Qproducts->valueInt('products_id'),
+                  'products_quantity' => $Qproducts->valueInt('products_quantity'),
+                  'products_sku' => $Qproducts->value('products_sku'),
+                  'products_ean' => $Qproducts->value('products_ean'),
+                  'products_asin' => $Qproducts->value('products_asin'),
                   'products_status' => $Qproducts->valueInt('products_status'),
                 ];
               }
