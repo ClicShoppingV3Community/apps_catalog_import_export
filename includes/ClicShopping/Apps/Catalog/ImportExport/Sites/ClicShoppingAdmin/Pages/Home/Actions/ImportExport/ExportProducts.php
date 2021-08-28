@@ -18,7 +18,7 @@
 
   class ExportProducts extends \ClicShopping\OM\PagesActionsAbstract
   {
-    protected $app;
+    protected mixed $app;
 
     public function execute()
     {

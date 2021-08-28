@@ -16,7 +16,7 @@
 
     protected $pm_code = 'import_export';
 
-    public $is_uninstallable = true;
+    public bool $is_uninstallable = true;
     public $sort_order = 400;
 
     protected function init()
