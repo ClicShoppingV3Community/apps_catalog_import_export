@@ -24,7 +24,7 @@
     {
       $this->app = Registry::get('ImportExport');
 
-      if (isset($_GET['ImportExport']) && isset($_GET['export']) && $_GET['export'] == 'products') {
+      if (isset($_GET['ImportExport', $_GET['export']) && $_GET['export'] == 'products') {
         $delimiter = HTML::sanitize($_POST['delimiter']);
         $enclosure = HTML::sanitize($_POST['enclosure']);
         $escapechar = HTML::sanitize($_POST['escape']);
