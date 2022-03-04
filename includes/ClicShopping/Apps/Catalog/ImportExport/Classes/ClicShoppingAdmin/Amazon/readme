@@ -1,0 +1,12 @@
+
+librairie amazon
+composer require drunomics/paapi5-php-sdk
+https://github.com/sgourichon/aws-sdk-for-php-with-amazon-product-advertising-api
+https://github.com/drunomics/php-paapi5-sdk
+
+http://www.developpeur-web.dantsu.com/fr/cours-tutoriels/amazon/a_rentabilisez-votre-site-internet-avec-amazon-product-advertising-api-et-php
+
+
+
+=====>
+https://github.com/kawax/laravel-amazon-product-api/blob/master/paapi5-php-sdk/SampleSearchItemsApi.php
